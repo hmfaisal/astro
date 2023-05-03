@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Astro</string>
+    <string name="flight_card_holder">Flights</string>
+    <string name="age_field_holder">Age:</string>
+    <string name="home_navigation">Astronauts</string>
+    <string name="back_navigation">Back</string>
+</resources>
