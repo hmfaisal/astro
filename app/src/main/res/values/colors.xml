@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Bg-->
+    <color name="background">#0C1B3A</color>
+    <!--Text color-->
+    <color name="text">#EDDEDE</color>
+    <!--Card color-->
+    <color name="card">#162544</color>
+    <!--Icon color-->
+    <color name="icon">#FF4242</color>
+    <!--Chip color-->
+    <color name="chip_red">#C99C9C</color>
+    <color name="chip_green">#C0F4E0</color>
 </resources>

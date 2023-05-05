@@ -1,9 +1,8 @@
 package com.ai.astro.ui.features.astronauts
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
@@ -12,49 +11,54 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ai.astro.R
+import com.ai.astro.ui.features.astronauts.components.AstronautItem
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun AstronautListScreen(
     navController: NavController,
-    viewModel: AstronautListViewModel = remember { AstronautListViewModel() }
+    viewModel: AstronautListViewModel
 ) {
-    val astronauts = viewModel.astronauts.value
-    val isLoading = viewModel.isLoading.value
+    val astronauts = viewModel.astronautListState
+    val isLoading = viewModel.isLoading
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.loadAstronauts()
+        viewModel.getAstronautList()
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(R.string.home_navigation)) },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = Color.White
+                backgroundColor = MaterialTheme.colors.background,
+                contentColor = colorResource(id = R.color.text),
             )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     ) {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = colorResource(id = R.color.background))
+        ) {
             itemsIndexed(astronauts) { index, astronaut ->
                 AstronautItem(astronaut) {
                     navController.navigate("astronaut/${astronaut.id}")
                 }
                 if (index == astronauts.lastIndex && !isLoading) {
-                    viewModel.loadAstronauts()
+                    viewModel.getAstronautList()
                 }
             }
             if (isLoading) {
                 item {
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                            .fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
                         CircularProgressIndicator()

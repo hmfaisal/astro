@@ -8,7 +8,7 @@ class RetryInterceptor : Interceptor {
         var request = chain.request()
         var response = chain.proceed(request)
         var tryCount = 0
-        while (response.code == 429 && tryCount < 15) {
+        while (response.code == 429 && tryCount < 3) {
             tryCount++
             Thread.sleep((1000 * tryCount).toLong())
             response = chain.proceed(request)

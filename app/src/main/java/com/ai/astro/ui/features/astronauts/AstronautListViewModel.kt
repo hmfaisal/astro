@@ -7,35 +7,45 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ai.astro.data.remote.repository.AstronautRepository
-import com.ai.astro.data.remote.response.Astronaut
+import com.ai.astro.common.Constants.PAGE_SIZE
+import com.ai.astro.data.repository.AstronautRepository
+import com.ai.astro.data.remote.dto.AstronautDto
 import kotlinx.coroutines.launch
 
-class AstronautListViewModel : ViewModel() {
+class AstronautListViewModel(private val repository: AstronautRepository = AstronautRepository()) : ViewModel() {
 
-    private val repository = AstronautRepository()
-
-    private val _astronauts = mutableStateOf<List<Astronaut>>(emptyList())
-    val astronauts: State<List<Astronaut>> = _astronauts
+    private val _astronautListState = mutableStateOf(listOf<AstronautDto>())
+    val astronautListState: List<AstronautDto>
+        get() = _astronautListState.value
 
     private val _isLoading = mutableStateOf(false)
-    val isLoading: State<Boolean> = _isLoading
+    val isLoading: Boolean
+        get() = _isLoading.value
 
-    private var currentPage = 1
+    private val _error = mutableStateOf("")
+    val error: String
+        get() = _error.value
 
-    fun loadAstronauts() {
-        if (_isLoading.value) {
-            return
-        }
+    private var currentPage = 0
+    private var isLastPage = false
+
+    init {
+        getAstronautList()
+    }
+
+    fun getAstronautList() {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
-                _isLoading.value = true
-                val pageSize = 10
-                val results = repository.getAstronauts(currentPage, pageSize)
-                _astronauts.value = _astronauts.value + results
-                currentPage += 1
+                val astronauts = repository.getAstronauts(currentPage, PAGE_SIZE)
+                if (astronauts.isNotEmpty()) {
+                    _astronautListState.value = _astronautListState.value + astronauts
+                    currentPage++
+                } else {
+                    isLastPage = true
+                }
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to load results", e)
+                _error.value = "Error retrieving astronauts: ${e.message}"
             } finally {
                 _isLoading.value = false
             }
