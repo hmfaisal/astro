@@ -1,33 +1,36 @@
 package com.ai.astro.ui.features.details
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ai.astro.data.remote.repository.AstronautRepository
-import com.ai.astro.data.remote.response.AstronautDetail
+import com.ai.astro.data.remote.dto.AstronautDto
+import com.ai.astro.data.repository.AstronautRepository
 import kotlinx.coroutines.launch
 
-class AstronautDetailViewModel: ViewModel() {
+class AstronautDetailViewModel(private val repository: AstronautRepository = AstronautRepository()): ViewModel() {
 
-    private val repository = AstronautRepository()
-
-    private val _selectedAstronaut = mutableStateOf<AstronautDetail?>(null)
-    val selectedAstronaut: State<AstronautDetail?> = _selectedAstronaut
+    private val _astronautDetailsState = mutableStateOf<AstronautDto?>(null)
+    val astronautDetailState: State<AstronautDto?>
+        get() = _astronautDetailsState
 
     private val _isLoading = mutableStateOf(false)
+    val isLoading: Boolean
+        get() = _isLoading.value
+
+    private val _error = mutableStateOf("")
+    val error: String
+        get() = _error.value
 
     // Function to get an astronaut by ID
-    fun loadAstronautById(id: Int) {
+    fun getAstronautDetails(astronautId: Int) {
+        _isLoading.value = true
         viewModelScope.launch {
             try {
-                _isLoading.value = true
-                val result = repository.getAstronautById(id)
-                _selectedAstronaut.value = result
+                val astronaut = repository.getAstronautById(astronautId)
+                _astronautDetailsState.value = astronaut
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to load result with ID $id", e)
+                _error.value = "Error retrieving astronaut details: ${e.message}"
             } finally {
                 _isLoading.value = false
             }
