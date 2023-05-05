@@ -9,7 +9,7 @@ import com.ai.astro.data.remote.dto.AstronautDto
 import com.ai.astro.ui.AstroApp
 
 class AstronautRepository(
-    private val apiService: AstronautApi = AstroApp.apiService,
+    private val apiService: AstronautApi = AstroApp.ApiService,
     private val astronautDao: AstronautDao = AstroApp.database.astronautDao()
 ){
 

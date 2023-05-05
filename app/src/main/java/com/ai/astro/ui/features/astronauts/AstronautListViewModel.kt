@@ -14,9 +14,9 @@ import kotlinx.coroutines.launch
 
 class AstronautListViewModel(private val repository: AstronautRepository = AstronautRepository()) : ViewModel() {
 
-    private val _astronautListState = mutableStateListOf<AstronautDto>()
+    private val _astronautListState = mutableStateOf(listOf<AstronautDto>())
     val astronautListState: List<AstronautDto>
-        get() = _astronautListState
+        get() = _astronautListState.value
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: Boolean
@@ -39,7 +39,7 @@ class AstronautListViewModel(private val repository: AstronautRepository = Astro
             try {
                 val astronauts = repository.getAstronauts(currentPage, PAGE_SIZE)
                 if (astronauts.isNotEmpty()) {
-                    _astronautListState.addAll(astronauts)
+                    _astronautListState.value = _astronautListState.value + astronauts
                     currentPage++
                 } else {
                     isLastPage = true

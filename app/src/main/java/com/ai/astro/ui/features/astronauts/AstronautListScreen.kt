@@ -22,7 +22,7 @@ import com.ai.astro.ui.features.astronauts.components.AstronautItem
 @Composable
 fun AstronautListScreen(
     navController: NavController,
-    viewModel: AstronautListViewModel = remember { AstronautListViewModel() }
+    viewModel: AstronautListViewModel
 ) {
     val astronauts = viewModel.astronautListState
     val isLoading = viewModel.isLoading
@@ -30,6 +30,7 @@ fun AstronautListScreen(
     LaunchedEffect(key1 = Unit) {
         viewModel.getAstronautList()
     }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -38,33 +39,32 @@ fun AstronautListScreen(
                 contentColor = colorResource(id = R.color.text),
             )
             Spacer(modifier = Modifier.height(8.dp))
-        },
-        content = {
-            LazyColumn (
-                modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = colorResource(id = R.color.background))
-            ){
-                itemsIndexed(astronauts) { index, astronaut ->
-                    AstronautItem(astronaut) {
-                        navController.navigate("astronaut/${astronaut.id}")
-                    }
-                    if (index == astronauts.lastIndex && !isLoading) {
-                        viewModel.getAstronautList()
-                    }
+        }
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = colorResource(id = R.color.background))
+        ) {
+            itemsIndexed(astronauts) { index, astronaut ->
+                AstronautItem(astronaut) {
+                    navController.navigate("astronaut/${astronaut.id}")
                 }
-                if (isLoading) {
-                    item {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
+                if (index == astronauts.lastIndex && !isLoading) {
+                    viewModel.getAstronautList()
+                }
+            }
+            if (isLoading) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
                     }
                 }
             }
         }
-    )
+    }
 }

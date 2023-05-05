@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import coil.compose.rememberAsyncImagePainter
 import com.ai.astro.R
 import com.ai.astro.ui.common.Title
@@ -35,7 +34,7 @@ fun AstronautDetailScreen(
     viewModel: AstronautDetailViewModel = remember { AstronautDetailViewModel() }
 ) {
 
-    val astronaut= viewModel.astronautDetailState.value
+    val astronaut = viewModel.astronautDetailState.value
 
     LaunchedEffect(astronautId) {
         viewModel.getAstronautDetails(astronautId)
@@ -60,55 +59,59 @@ fun AstronautDetailScreen(
                     )
                 }
             )
-        },
-
-        content = {
-            astronaut?.let {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = colorResource(id = R.color.background))
-                ) {
-                    item {
-                        astronaut.apply {
-                            Image(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(346.dp),
-                                painter = rememberAsyncImagePainter(model = it.profileImageUrl),
-                                alignment = Alignment.CenterStart,
-                                contentDescription = "",
-                                contentScale = ContentScale.Crop
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                            AstronautInfoCard(it.name, it.age, it.nationality, it.status.name, it.flightsCount)
-                        }
-                    }
-                    item{
-                        astronaut.apply {
-                            Spacer(modifier = Modifier.height(24.dp))
-                            Title(title = stringResource(R.string.bio_card_holder))
-                            Spacer(modifier = Modifier.height(16.dp))
-                            BioCard(it.bio)
-                        }
-                    }
-                    item{
-                        astronaut.apply {
-                            Spacer(modifier = Modifier.height(24.dp))
-                            Title(title = stringResource(R.string.flight_card_holder))
-                            Spacer(modifier = Modifier.height(16.dp))
-                            it.flights?.let { it1 -> FlightList(it1) }
-                        }
+        }
+    ) {
+        astronaut?.let {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = colorResource(id = R.color.background))
+            ) {
+                item {
+                    astronaut.apply {
+                        Image(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(346.dp),
+                            painter = rememberAsyncImagePainter(model = it.profileImageUrl),
+                            alignment = Alignment.CenterStart,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        AstronautInfoCard(
+                            it.name,
+                            it.age,
+                            it.nationality,
+                            it.status.name,
+                            it.flightsCount
+                        )
                     }
                 }
-            } ?: run {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+                item {
+                    astronaut.apply {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Title(title = stringResource(R.string.bio_card_holder))
+                        Spacer(modifier = Modifier.height(16.dp))
+                        BioCard(it.bio)
+                    }
+                }
+                item {
+                    astronaut.apply {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Title(title = stringResource(R.string.flight_card_holder))
+                        Spacer(modifier = Modifier.height(16.dp))
+                        it.flights?.let { it1 -> FlightList(it1) }
+                    }
                 }
             }
+        } ?: run {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
-    )
+    }
 }
