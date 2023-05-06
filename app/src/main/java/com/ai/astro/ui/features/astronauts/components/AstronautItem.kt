@@ -23,12 +23,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.ai.astro.R
-import com.ai.astro.data.remote.dto.AstronautDto
+import com.ai.astro.model.Astronaut
 import com.ai.astro.ui.common.ChipView
 
 @Composable
 fun AstronautItem(
-    astronaut: AstronautDto,
+    astronaut: Astronaut,
     onItemClick: (astronautId: Int) -> Unit
 ) {
     Card(
