@@ -1,10 +1,6 @@
 package com.ai.astro.ui.features.astronauts
 
-import android.content.ContentValues.TAG
-import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ai.astro.common.Constants.PAGE_SIZE
@@ -12,7 +8,9 @@ import com.ai.astro.data.repository.AstronautRepository
 import com.ai.astro.data.remote.dto.AstronautDto
 import kotlinx.coroutines.launch
 
-class AstronautListViewModel(private val repository: AstronautRepository = AstronautRepository()) : ViewModel() {
+class AstronautListViewModel(
+    private val repository: AstronautRepository = AstronautRepository()
+) : ViewModel() {
 
     private val _astronautListState = mutableStateOf(listOf<AstronautDto>())
     val astronautListState: List<AstronautDto>
@@ -26,14 +24,15 @@ class AstronautListViewModel(private val repository: AstronautRepository = Astro
     val error: String
         get() = _error.value
 
-    private var currentPage = 0
-    private var isLastPage = false
+    private var currentPage: Int = 0
+    private var isLastPage: Boolean = false
 
     init {
         getAstronautList()
     }
 
     fun getAstronautList() {
+        if (isLastPage) return // Don't fetch if it's the last page
         viewModelScope.launch {
             _isLoading.value = true
             try {

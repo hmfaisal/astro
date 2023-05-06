@@ -25,7 +25,7 @@ class Converters {
 
     @TypeConverter
     fun toStatusEntity(value: String): StatusEntity? {
-        val listType = object : TypeToken<FlightEntity?>() {}.type
+        val listType = object : TypeToken<StatusEntity?>() {}.type
         return value?.let { Gson().fromJson(it, listType) }
     }
 }

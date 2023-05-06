@@ -1,11 +1,12 @@
 package com.ai.astro.ui
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.ai.astro.common.Constants
 import com.ai.astro.data.local.AstronautDatabase
 import com.ai.astro.data.remote.AstronautApi
-import com.ai.astro.util.RetryInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,6 +19,7 @@ class AstroApp : Application() {
         super.onCreate()
         initRetrofit()
         initDatabase()
+        initSharedPreferences()
     }
 
     private fun initRetrofit() {
@@ -26,11 +28,11 @@ class AstroApp : Application() {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(RetryInterceptor())
+            //.addInterceptor(RetryInterceptor())
             .addInterceptor(loggingInterceptor)
             .build()
 
-        ApiService = Retrofit.Builder()
+        apiService = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -46,11 +48,18 @@ class AstroApp : Application() {
         ).build()
     }
 
+    private fun initSharedPreferences() {
+        sharedPreferences = getSharedPreferences("AstroApp", Context.MODE_PRIVATE)
+    }
+
     companion object {
-        lateinit var ApiService: AstronautApi
+        lateinit var apiService: AstronautApi
             private set
 
         lateinit var database: AstronautDatabase
+            private set
+
+        lateinit var sharedPreferences: SharedPreferences
             private set
     }
 }

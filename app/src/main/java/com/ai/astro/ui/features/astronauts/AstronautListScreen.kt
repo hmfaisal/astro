@@ -1,6 +1,7 @@
 package com.ai.astro.ui.features.astronauts
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ai.astro.R
+import com.ai.astro.ui.core.Navigation
 import com.ai.astro.ui.features.astronauts.components.AstronautItem
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -37,6 +39,7 @@ fun AstronautListScreen(
                 title = { Text(text = stringResource(R.string.home_navigation)) },
                 backgroundColor = MaterialTheme.colors.background,
                 contentColor = colorResource(id = R.color.text),
+                elevation = 0.dp
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -48,7 +51,7 @@ fun AstronautListScreen(
         ) {
             itemsIndexed(astronauts) { index, astronaut ->
                 AstronautItem(astronaut) {
-                    navController.navigate("astronaut/${astronaut.id}")
+                    navController.navigate("${Navigation.Astronaut.route}/${astronaut.id}")
                 }
                 if (index == astronauts.lastIndex && !isLoading) {
                     viewModel.getAstronautList()
@@ -68,3 +71,4 @@ fun AstronautListScreen(
         }
     }
 }
+

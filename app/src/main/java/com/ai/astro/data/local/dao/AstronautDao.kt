@@ -10,7 +10,7 @@ interface AstronautDao {
     suspend fun getAstronauts(page: Int, pageSize: Int): List<AstronautEntity>
 
     @Query("SELECT * FROM astronauts WHERE id = :astronautId")
-    suspend fun getAstronautById(astronautId: Int): AstronautEntity
+    suspend fun getAstronautById(astronautId: Int): AstronautEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAstronauts(astronauts: List<AstronautEntity>)

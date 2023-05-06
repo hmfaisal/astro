@@ -57,7 +57,8 @@ fun AstronautDetailScreen(
                             },
                         tint = colorResource(id = R.color.text)
                     )
-                }
+                },
+                elevation = 0.dp
             )
         }
     ) {

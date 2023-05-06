@@ -57,11 +57,15 @@ fun AstronautItem(
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column (
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier
+                    .weight(2f)
+                    .align(Alignment.CenterVertically)
             ){
                 Text(
                     text = astronaut.name,
-                    modifier = Modifier.padding(0.dp, 0.dp, 12.dp, 0.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 0.dp, 12.dp, 0.dp),
                     color = MaterialTheme.colors.surface,
                     fontWeight = FontWeight.Bold,
                     style = typography.subtitle1,
@@ -95,6 +99,7 @@ fun AstronautItem(
             }
             Column (
                 modifier = Modifier
+                    .weight(1f)
                     .wrapContentHeight()
             ){
                 Row(
