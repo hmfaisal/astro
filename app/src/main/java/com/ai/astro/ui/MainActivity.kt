@@ -11,7 +11,6 @@ import com.ai.astro.ui.theme.AstroTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             AstroTheme{
                 // A surface container using the 'background' color from the theme

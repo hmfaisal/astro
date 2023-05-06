@@ -13,11 +13,17 @@ import com.ai.astro.ui.features.details.AstronautDetailScreen
 fun MainView() {
     val navController = rememberNavController()
     val viewModel: AstronautListViewModel = viewModel()
-    NavHost(navController, startDestination = "astronaut") {
-        composable("astronaut") {
+    NavHost(
+        navController,
+        startDestination = Navigation.Astronauts.route
+    ) {
+        composable(
+            route = Navigation.Astronauts.route,
+
+        ) {
             AstronautListScreen(navController = navController, viewModel = viewModel)
         }
-        composable("astronaut/{astronautId}") { backStackEntry ->
+        composable("${Navigation.Astronaut.route}/{astronautId}") { backStackEntry ->
             AstronautDetailScreen(
                 astronautId = backStackEntry.arguments?.getString("astronautId")?.toInt() ?: 1,
                 navController = navController

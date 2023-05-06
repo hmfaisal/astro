@@ -1,89 +1,62 @@
 package com.ai.astro.data.repository
 
 import com.ai.astro.data.local.dao.AstronautDao
-import com.ai.astro.data.local.entity.AstronautEntity
-import com.ai.astro.data.local.entity.FlightEntity
-import com.ai.astro.data.local.entity.StatusEntity
+import com.ai.astro.data.mapper.AstronautMapper
 import com.ai.astro.data.remote.AstronautApi
-import com.ai.astro.data.remote.dto.AstronautDto
+import com.ai.astro.model.Astronaut
 import com.ai.astro.ui.AstroApp
 
 class AstronautRepository(
-    private val apiService: AstronautApi = AstroApp.ApiService,
-    private val astronautDao: AstronautDao = AstroApp.database.astronautDao()
-){
+    private val apiService: AstronautApi = AstroApp.apiService,
+    private val astronautDao: AstronautDao = AstroApp.database.astronautDao(),
+    private val astronautMapper: AstronautMapper = AstronautMapper()
+) {
 
     // Function to get the list of items
-    suspend fun getAstronauts(page: Int, pageSize: Int): List<AstronautDto> {
-        val astronauts = astronautDao.getAstronauts(page, pageSize)
-        if (astronauts.isEmpty()) {
-            // Fetch data from API and save to local database
-            val response = apiService.getAstronauts(pageSize, page * pageSize)
-            val astronautEntities = response.results.map {
-                AstronautEntity(
-                    id = it.id,
-                    name = it.name,
-                    age = it.age,
-                    bio = it.bio,
-                    nationality = it.nationality,
-                    status = StatusEntity(
-                        id = it.status.id,
-                        name = it.status.name
-                    ),
-                    flightsCount = it.flightsCount,
-                    flights = it.flights?.map { flightDto ->
-                        FlightEntity(
-                            id = flightDto.id,
-                            name = flightDto.name
-                        )
-                    },
-                    profileImageUrl = it.profileImageUrl,
-                    profileImageThumbnailUrl = it.profileImageThumbnailUrl
-                )
+    suspend fun getAstronauts(page: Int, pageSize: Int): List<Astronaut> {
+        try {
+            val astronauts = astronautDao.getAstronauts(page, pageSize)
+            if (astronauts.isEmpty()) {
+                // Fetch data from API and save to local database
+                val response = apiService.getAstronauts(pageSize, page * pageSize)
+                val astronautEntities = response.results.map {astronautDto ->
+                    astronautMapper.mapAstronautDtoToEntity(astronautDto)
+                }
+                astronautDao.insertAstronauts(astronautEntities)
+                return astronautEntities.map { astronautEntity ->
+                    astronautMapper.mapAstronautEntityToDomain(astronautEntity)
+                }
+            } else {
+                return astronauts.map { astronautEntity ->
+                    astronautMapper.mapAstronautEntityToDomain(astronautEntity)
+                }
             }
-            astronautDao.insertAstronauts(astronautEntities)
-            return response.results
-        } else {
-            return astronauts.map {
-                it.toDto()
-            }
+        } catch (e: Exception) {
+            e.printStackTrace() // Log the stack trace for debugging purposes
+            return emptyList()
         }
     }
+
 
     // Function to get an item by ID
-    suspend fun getAstronautById(astronautId: Int): AstronautDto {
+    suspend fun getAstronautById(astronautId: Int): Astronaut {
         try {
-            val response = apiService.getAstronautById(astronautId)
-            val astronautEntity = AstronautEntity(
-                id = response.id,
-                name = response.name,
-                age = response.age,
-                bio = response.bio,
-                nationality = response.nationality,
-                status = StatusEntity(
-                    id = response.status.id,
-                    name = response.status.name
-                ),
-                flightsCount = response.flightsCount,
-                flights = response.flights?.map { flightDto ->
-                    FlightEntity(
-                        id = flightDto.id,
-                        name = flightDto.name
-                    )
-                },
-                profileImageUrl = response.profileImageUrl,
-                profileImageThumbnailUrl = response.profileImageThumbnailUrl
-            )
-            astronautDao.insertAstronaut(astronautEntity)
-            return astronautEntity.toDto()
+            val astronaut = astronautDao.getAstronautById(astronautId)
+            if (astronaut == null || astronaut.flights.isNullOrEmpty()) {
+                val response = apiService.getAstronautById(astronautId)
+                val astronautEntity = astronautMapper.mapAstronautDtoToEntity(response)
+                astronautDao.insertAstronaut(astronautEntity)
+                return astronautMapper.mapAstronautEntityToDomain(astronautEntity)
+            } else {
+                return astronautMapper.mapAstronautEntityToDomain(astronaut)
+            }
         } catch (e: Exception) {
-            val astronautEntity = astronautDao.getAstronautById(astronautId)
-            if (astronautEntity == null) {
+            val astronaut = astronautDao.getAstronautById(astronautId)
+            if (astronaut == null) {
                 throw e
             } else {
-                return astronautEntity.toDto()
+                return astronautMapper.mapAstronautEntityToDomain(astronaut)
             }
         }
     }
-
 }
