@@ -9,6 +9,7 @@ Major framework, tools used at this project
 * ![android studio](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
 
 ## App Output
-Home | Details
+Home | Details|
 --- | --- |
-![](https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011246.png) | ![](https://github.com/hmfaisal/astro/blob/main/https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011417.png)
+<img src="https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011246.png" width="360" /> | <img src="https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011417.png" width="360" />|
+
