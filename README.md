@@ -11,4 +11,4 @@ Major framework, tools used at this project
 ## App Output
 Home | Details
 --- | --- |
-![](https://github.com/hmfaisal/astro//blob/main/screenshot/Screenshot_20230508_011246.png) | ![](https://github.com/hmfaisal/astro//blob/main/https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011417.png)
+![](https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011246.png) | ![](https://github.com/hmfaisal/astro/blob/main/https://github.com/hmfaisal/astro/blob/main/screenshot/Screenshot_20230508_011417.png)
