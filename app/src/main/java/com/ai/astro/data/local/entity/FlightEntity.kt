@@ -9,9 +9,4 @@ data class FlightEntity(
     @PrimaryKey
     val id: String,
     val name: String
-){
-    fun toDto() = FlightDto(
-        id = id,
-        name = name
-    )
-}
+)

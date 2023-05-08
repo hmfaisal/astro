@@ -9,9 +9,4 @@ data class StatusEntity(
     @PrimaryKey
     val id: Int,
     val name: String
-){
-    fun toDto() = StatusDto(
-        id = id,
-        name = name
-    )
-}
+)
