@@ -17,17 +17,4 @@ data class AstronautEntity(
     val flights: List<FlightEntity>?,
     val profileImageUrl: String?,
     val profileImageThumbnailUrl: String?
-){
-    fun toDto() = AstronautDto(
-        id = id,
-        name = name,
-        age = age,
-        bio = bio,
-        nationality = nationality,
-        status = status.toDto(),
-        flightsCount = flightsCount,
-        flights = flights?.map { it.toDto() },
-        profileImageUrl = profileImageUrl,
-        profileImageThumbnailUrl = profileImageThumbnailUrl
-    )
-}
+)
