@@ -2,7 +2,7 @@
 A demo android project to show the list of astronauts and on click show astronaut detail. This app allow users to browse a list of astronauts, their information, and a detail view of their bio and flights.
 
 ## [App Documentation](https://hmfaisal.github.io/astro/category/intro/)
-An interactive code documentation is live at this URL [Astro App DOCUMENTATION](https://hmfaisal.github.io/astro/category/intro/). The documentation covers everything from the perspective of folder structure, app flow, code document in detail. Highly encouraged to take a look at the documentation if you want to know every details of the code
+An interactive code documentation is live at this URL [Astro App Documentation](https://hmfaisal.github.io/astro/category/intro/). The documentation covers everything from the perspective of folder structure, app flow, code document in detail. Highly encouraged to take a look at the documentation if you want to know every details of the code
 
 ## App Screenshot
 Home | Details|
