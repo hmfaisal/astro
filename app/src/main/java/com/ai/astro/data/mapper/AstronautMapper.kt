@@ -1,14 +1,14 @@
 package com.ai.astro.data.mapper
 
-import com.ai.astro.data.local.entity.AstronautEntity
-import com.ai.astro.data.local.entity.FlightEntity
-import com.ai.astro.data.local.entity.StatusEntity
-import com.ai.astro.data.remote.dto.AstronautDto
-import com.ai.astro.data.remote.dto.FlightDto
-import com.ai.astro.data.remote.dto.StatusDto
-import com.ai.astro.model.Astronaut
-import com.ai.astro.model.Flight
-import com.ai.astro.model.Status
+import com.ai.astro.data.local.astronaut.entity.AstronautEntity
+import com.ai.astro.data.local.astronaut.entity.FlightEntity
+import com.ai.astro.data.local.astronaut.entity.StatusEntity
+import com.ai.astro.data.remote.astronaut.dto.AstronautDto
+import com.ai.astro.data.remote.astronaut.dto.FlightDto
+import com.ai.astro.data.remote.astronaut.dto.StatusDto
+import com.ai.astro.model.astronaut.Astronaut
+import com.ai.astro.model.astronaut.Flight
+import com.ai.astro.model.astronaut.Status
 
 class AstronautMapper {
     fun mapAstronautDtoToEntity(dto: AstronautDto): AstronautEntity {

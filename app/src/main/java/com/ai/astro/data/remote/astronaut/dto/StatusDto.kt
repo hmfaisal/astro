@@ -1,4 +1,4 @@
-package com.ai.astro.data.remote.dto
+package com.ai.astro.data.remote.astronaut.dto
 
 data class StatusDto(
     val id: Int,

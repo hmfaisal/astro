@@ -1,6 +1,6 @@
-package com.ai.astro.data.remote
+package com.ai.astro.data.remote.astronaut
 
-import com.ai.astro.data.remote.dto.AstronautDto
+import com.ai.astro.data.remote.astronaut.dto.AstronautDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

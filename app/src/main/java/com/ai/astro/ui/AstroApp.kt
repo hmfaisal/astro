@@ -4,40 +4,29 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.ai.astro.common.Constants
-import com.ai.astro.data.local.AstronautDatabase
-import com.ai.astro.data.remote.AstronautApi
-import com.google.gson.GsonBuilder
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.ai.astro.data.local.astronaut.AstronautDatabase
+import com.ai.astro.data.remote.OpenAiApi
+import com.ai.astro.data.remote.astronaut.AstronautApi
+import com.ai.astro.data.remote.astronaut.AstronautApiClient
+import com.ai.astro.data.remote.openai.OpenAiApiClient
+
 
 class AstroApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
         initRetrofit()
+        initOpenAIApi()
         initDatabase()
         initSharedPreferences()
     }
 
     private fun initRetrofit() {
-        val gson = GsonBuilder().create()
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        apiService = AstronautApiClient.createAstronautApiService()
+    }
 
-        val client = OkHttpClient.Builder()
-            //.addInterceptor(RetryInterceptor())
-            .addInterceptor(loggingInterceptor)
-            .build()
-
-        apiService = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-            .create(AstronautApi::class.java)
+    private fun initOpenAIApi(){
+        openAiApiService = OpenAiApiClient.createOpenAiApiService()
     }
 
     private fun initDatabase() {
@@ -60,6 +49,9 @@ class AstroApp : Application() {
             private set
 
         lateinit var sharedPreferences: SharedPreferences
+            private set
+
+        lateinit var openAiApiService: OpenAiApi
             private set
     }
 }

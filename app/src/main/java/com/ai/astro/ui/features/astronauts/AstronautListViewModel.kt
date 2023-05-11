@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ai.astro.common.Constants.PAGE_SIZE
 import com.ai.astro.data.repository.AstronautRepository
-import com.ai.astro.model.Astronaut
+import com.ai.astro.model.astronaut.Astronaut
 import kotlinx.coroutines.launch
 
 class AstronautListViewModel(

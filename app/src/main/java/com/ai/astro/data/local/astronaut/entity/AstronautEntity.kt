@@ -1,8 +1,7 @@
-package com.ai.astro.data.local.entity
+package com.ai.astro.data.local.astronaut.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.ai.astro.data.remote.dto.AstronautDto
 
 @Entity(tableName = "astronauts")
 data class AstronautEntity(

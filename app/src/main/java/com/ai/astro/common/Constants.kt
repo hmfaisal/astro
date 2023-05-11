@@ -1,6 +1,8 @@
 package com.ai.astro.common
 
 object Constants {
-    const val BASE_URL = "https://ll.thespacedevs.com/2.2.0/"
+    const val ASTRONAUT_BASE_URL = "https://ll.thespacedevs.com/2.2.0/"
+    const val OPENAI_BASE_URL = "https://api.openai.com/"
     const val PAGE_SIZE = 10
+    const val OPENAI_MODEL = "gpt-3.5-turbo"
 }

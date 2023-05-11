@@ -1,9 +1,9 @@
 package com.ai.astro.data.repository
 
-import com.ai.astro.data.local.dao.AstronautDao
+import com.ai.astro.data.local.astronaut.dao.AstronautDao
 import com.ai.astro.data.mapper.AstronautMapper
-import com.ai.astro.data.remote.AstronautApi
-import com.ai.astro.model.Astronaut
+import com.ai.astro.data.remote.astronaut.AstronautApi
+import com.ai.astro.model.astronaut.Astronaut
 import com.ai.astro.ui.AstroApp
 
 class AstronautRepository(

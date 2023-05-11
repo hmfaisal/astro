@@ -5,10 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ai.astro.data.repository.AstronautRepository
-import com.ai.astro.model.Astronaut
+import com.ai.astro.model.astronaut.Astronaut
 import kotlinx.coroutines.launch
 
-class AstronautDetailViewModel(private val repository: AstronautRepository = AstronautRepository()): ViewModel() {
+class AstronautDetailViewModel(
+    private val repository: AstronautRepository = AstronautRepository()
+): ViewModel() {
 
     private val _astronautDetailsState = mutableStateOf<Astronaut?>(null)
     val astronautDetailState: State<Astronaut?>

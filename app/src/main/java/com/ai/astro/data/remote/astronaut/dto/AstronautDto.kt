@@ -1,4 +1,4 @@
-package com.ai.astro.data.remote.dto
+package com.ai.astro.data.remote.astronaut.dto
 
 import com.google.gson.annotations.SerializedName
 

@@ -7,4 +7,8 @@
     <string name="home_navigation">Astronauts</string>
     <string name="back_navigation">Back</string>
     <string name="details_navigation">Details</string>
+    <string name="chatbot_navigation">Chatbot</string>
+    <string name="TYPE_A_MESSAGE">Type a message</string>
+    <string name="SEND_MESSAGE">Send Message</string>
+    <string name="SEND_BUTTON">Send</string>
 </resources>

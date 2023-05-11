@@ -1,8 +1,8 @@
 package com.ai.astro.util
 
 import androidx.room.TypeConverter
-import com.ai.astro.data.local.entity.FlightEntity
-import com.ai.astro.data.local.entity.StatusEntity
+import com.ai.astro.data.local.astronaut.entity.FlightEntity
+import com.ai.astro.data.local.astronaut.entity.StatusEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

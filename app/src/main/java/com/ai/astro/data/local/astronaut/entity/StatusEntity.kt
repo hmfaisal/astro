@@ -1,8 +1,8 @@
-package com.ai.astro.data.local.entity
+package com.ai.astro.data.local.astronaut.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.ai.astro.data.remote.dto.StatusDto
+import com.ai.astro.data.remote.astronaut.dto.StatusDto
 
 @Entity(tableName = "status")
 data class StatusEntity(

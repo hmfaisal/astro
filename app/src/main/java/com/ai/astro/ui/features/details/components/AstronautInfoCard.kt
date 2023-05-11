@@ -49,7 +49,7 @@ fun AstronautInfoCard(name: String, age: Int, nationality: String, status:String
                     imageVector = Icons.Default.LocationOn,
                     contentDescription = null,
                     modifier = Modifier.size(16.dp, 16.dp),
-                    tint = colorResource(id = com.ai.astro.R.color.icon)
+                    tint = colorResource(id = R.color.icon)
                 )
                 Text(
                     text = nationality,

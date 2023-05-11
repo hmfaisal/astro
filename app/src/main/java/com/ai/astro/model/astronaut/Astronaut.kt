@@ -1,4 +1,4 @@
-package com.ai.astro.model
+package com.ai.astro.model.astronaut
 
 data class Astronaut(
     val id: Int,

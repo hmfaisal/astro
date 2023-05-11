@@ -13,7 +13,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.ai.astro.R
-import com.ai.astro.model.Flight
+import com.ai.astro.model.astronaut.Flight
 
 @Composable
 fun FlightList(flights:List<Flight>){

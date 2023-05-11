@@ -1,7 +1,7 @@
-package com.ai.astro.data.local.dao
+package com.ai.astro.data.local.astronaut.dao
 
 import androidx.room.*
-import com.ai.astro.data.local.entity.AstronautEntity
+import com.ai.astro.data.local.astronaut.entity.AstronautEntity
 
 @Dao
 interface AstronautDao {
